@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: #f0fdfa; 
+            --stem-color: #86efac; 
+            --wrap-color: #fef08a;
+            --wrap-shadow: #fde047;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #fffbeb 100%);
+            font-family: 'Nunito', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0.8) rotate(0deg); opacity: 0; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes fadeInCard {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .bouquet-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin-bottom: 2rem;
+            animation: sway 6s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .flowers {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .flower {
+            position: absolute;
+            bottom: 120px;
+            transform-origin: bottom center;
+        }
+
+        .stem {
+            width: 8px;
+            height: 180px;
+            background: var(--stem-color);
+            border-radius: 10px;
+            position: absolute;
+            bottom: -160px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            box-shadow: inset -2px 0 4px rgba(0,0,0,0.1);
+        }
+
+        .petal-container {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            z-index: 2;
+            animation: bloom 2s ease-out forwards;
+        }
+
+        .petal {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: #ff1493; 
+            border-radius: 50% 50% 20% 20%;
+            top: 10px;
+            left: 15px;
+            transform-origin: bottom center;
+            box-shadow: inset 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .center {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #ffffff; 
+            border-radius: 50%;
+            top: 28px;
+            left: 18px;
+            z-index: 3;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+        }
+
+  
+        .f1 { left: 120px; bottom: 150px; z-index: 5; }
+        .f1 .petal { background: #ff1493; } 
+        .f1 .center { background: #ffffff; }
+        
+
+        .f2 { left: 60px; bottom: 130px; transform: rotate(-20deg); z-index: 4; }
+        .f2 .petal { background: #0a22ff; } 
+        .f2 .stem { height: 160px; }
+        .f2 .center { background: #ffffff; }
+
+
+        .f3 { left: 180px; bottom: 140px; transform: rotate(25deg); z-index: 4; }
+        .f3 .petal { background: #4db8ff; } 
+        .f3 .center { background: #ff1493; }
+
+
+        .f4 { left: 90px; bottom: 170px; transform: rotate(-10deg); z-index: 3; }
+        .f4 .petal { background: #ffffff; } 
+        .f4 .center { background: #0a22ff; }
+
+
+        .f5 { left: 150px; bottom: 180px; transform: rotate(15deg); z-index: 3; }
+        .f5 .petal { background: #ff1493; } 
+        .f5 .center { background: #ffffff; }
+
+        .p1 { transform: rotate(0deg); }
+        .p2 { transform: rotate(72deg); }
+        .p3 { transform: rotate(144deg); }
+        .p4 { transform: rotate(216deg); }
+        .p5 { transform: rotate(288deg); }
+
+        .wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 70px solid transparent;
+            border-right: 70px solid transparent;
+            border-top: 150px solid var(--wrap-color);
+            z-index: 10;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
+        }
+
+        .bow {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            z-index: 11;
+        }
+        .bow::before, .bow::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: #38bdf8; 
+            border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        }
+        .bow::before { left: -25px; top: 10px; transform: rotate(-30deg); }
+        .bow::after { right: -25px; top: 10px; transform: rotate(30deg); }
+        .bow-center {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #0ea5e9; 
+            border-radius: 50%;
+            top: 12px;
+            left: 12px;
+            z-index: 2;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            text-align: center;
+            border: 4px dashed #93c5fd; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            animation: fadeInCard 1.5s ease-out 1s forwards;
+            opacity: 0;
+            position: relative;
+        }
+
+        .card h1 {
+            font-family: 'Quicksand', sans-serif;
+            color: #14b8a6; 
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #4b5563;
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bouquet-container">
+        <div class="flowers">
+
+            <div class="flower f4">
+                <div class="stem"></div>
+                <div class="petal-container" style="animation-delay: 0.2s">
+                    <div class="petal p1"></div><div class="petal p2"></div>
+                    <div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="center"></div>
+                </div>
+            </div>
+
+            <div class="flower f5">
+                <div class="stem"></div>
+                <div class="petal-container" style="animation-delay: 0.4s">
+                    <div class="petal p1"></div><div class="petal p2"></div>
+                    <div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="center"></div>
+                </div>
+            </div>
+
+            <div class="flower f2">
+                <div class="stem"></div>
+                <div class="petal-container" style="animation-delay: 0.6s">
+                    <div class="petal p1"></div><div class="petal p2"></div>
+                    <div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="center"></div>
+                </div>
+            </div>
+
+  
+            <div class="flower f3">
+                <div class="stem"></div>
+                <div class="petal-container" style="animation-delay: 0.8s">
+                    <div class="petal p1"></div><div class="petal p2"></div>
+                    <div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="center"></div>
+                </div>
+            </div>
+
+            <div class="flower f1">
+                <div class="stem"></div>
+                <div class="petal-container" style="animation-delay: 1s">
+                    <div class="petal p1"></div><div class="petal p2"></div>
+                    <div class="petal p3"></div><div class="petal p4"></div>
+                    <div class="petal p5"></div><div class="center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper"></div>
+        <div class="bow">
+            <div class="bow-center"></div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h1>Para Alo!</h1>
+        <p>
+            Unas flores para la chica más lista, genial y dedicada que conozco,
+            porque siempre demuestras la gran capacidad que tienes para lograr todo lo que te propones
+        </p>
+        
+        <p class="text-teal-500 mt-4 text-xl">
+            Sigue Brillando :))
+        </p>
+    </div>
+
+</body>
+</html>
